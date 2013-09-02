@@ -13,7 +13,7 @@
 #include <arpa/inet.h>
 #include <netdb.h>
 
-#define MYPORT "4950"	// the port users will be connecting to
+#define MYPORT "10024"	// the port users will be connecting to
 
 #define MAXBUFLEN 100
 
@@ -61,7 +61,7 @@ int main(void)
 			perror("listener: bind");
 			continue;
 		}
-        
+       		
 		break;
 	}
     
@@ -88,7 +88,16 @@ int main(void)
 	printf("listener: packet is %d bytes long\n", numbytes);
 	buf[numbytes] = '\0';
 	printf("listener: packet contains \"%s\"\n", buf);
-    
+   
+
+//new 
+	if ((numbytes = sendto(sockfd, buf, strlen(buf), 0,
+                           p->ai_addr, p->ai_addrlen)) == -1) {
+                perror("LISTENER SENDING BACK");
+                exit(1);
+        }
+	else {printf("Success?");}
+
 	close(sockfd);
     
 	return 0;
