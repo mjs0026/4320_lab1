@@ -18,11 +18,11 @@ void error(char *msg)
 
 void func(char msg[1024])
 {
-	int j = 0, i = 0;
+	int j = 0;
 	if(msg[8] == '5' && msg[9] == '5')
 	{
 		char buf[12], count[5];
-		for (i = 10; i < strlen(msg); i = i + 2)
+		for (int i = 10; i < strlen(msg); i = i + 2)
 		{
 			if((msg[i] == '4' && msg[i + 1] == '1') || 
 				(msg[i] == '4' && msg[i + 1] == '5') ||
@@ -56,7 +56,7 @@ void func(char msg[1024])
 		char buf[1028], count[5];
 		int countOff = 0;
 		j = 8;
-		for (i = 10; i < strlen(msg); i = i + 2)
+		for (int i = 10; i < strlen(msg); i = i + 2)
 		{
 			if((msg[i] == '4' && msg[i + 1] == '1') || 
 				(msg[i] == '4' && msg[i + 1] == '5') ||
@@ -84,7 +84,7 @@ void func(char msg[1024])
 		buf[5] = msg[5];
 		buf[6] = msg[6];
 		buf[7] = msg[7];
-		strncpy(end, buf, (countOff + 5)*2);
+		strncpy(end, buf, (countOff + 4)*2);
 	}
 }
 
@@ -93,7 +93,8 @@ int main(int argc, char *argv[])
 {
 	int sock, length, fromlen, n, *local;
 	struct sockaddr_in server, from;
-	char buffer[1028] = {' '};
+	char buffer[256];
+
 	sock = socket(AF_INET, SOCK_DGRAM, 0);
 	if (sock < 0)
 	{

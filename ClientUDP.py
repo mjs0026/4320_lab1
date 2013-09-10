@@ -16,12 +16,13 @@ start = datetime.datetime.now()
 s.sendto(( obj.TML + obj.requestID + obj.operation + obj.message), (sys.argv[1], int(sys.argv[2])))
 recieve = s.recv(256)
 end = datetime.datetime.now()
-print "Length " + str(int(recieve[0:4], 16))
+leng = int(recieve[0:4], 16)
+print "Length " + str(leng)
 print "Request ID: " + str(int(recieve[4:8], 16))
 if sys.argv[3] == '85':
 	print "Number of vowels: " + str(int(recieve[8:], 16))
 else:
-	print "Message without vowels: " + recieve[8:].decode("hex")
+	print "Message without vowels: " + recieve[8:(leng * 2)].decode("hex")
 print "Transmission time: " + str((end - start).microseconds) + " microseconds"
 
 
